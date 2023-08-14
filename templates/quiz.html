@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz</title>
+    <!-- Include CSS stylesheets and Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.5.0/css/bootstrap.min.css" integrity="sha512-7/5+reZN12u75Xu/c6ctaw9pShwvR4In6ZTIEvYtU3t8sMhrvA1c8YXxq3Xvvtc/65SMFtcuSAwLqDOe4hQ9BA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <style>
+    </style>
+</head>
+<body>
+    {% include "header.html" %}
+    <div class="container">
+        <div class="login-box box boxs">
+            <form id="quizForm" action="/quiz" method="POST">
+                <div class="question-container">
+                    {% for question in questions %}
+                        <div class="question" id="question{{ loop.index }}">
+                            <div class="info">
+                                <span class="question-text">{{ question.question }}</span>
+                                <span class="steps">{{ loop.index }}/{{ questions|length }}</span>
+                            </div>
+                            <div class="radio-input">
+                                {% set parent_index = loop.index %}
+                                {% for option in question.options %}
+                                    <input type="radio" id="option{{ parent_index }}-{{ loop.index0 }}" name="answer{{ parent_index }}" value="{{ option.id }}" required>
+                                    <label for="option{{ parent_index }}-{{ loop.index0 }}">{{ option.text }}</label>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                
+                <br>
+                <button class ="btn btn-primary" type="button" id="nextBtn">Next</button>
+                <button type="submit" class ="btn btn-primary" id="submitBtn">Submit</button>
+            </form>
+        </div>
+    </div>
+    <br>
+    <div class="round">
+                
+    </div>           
+    <div class="alan-btn">
+
+    </div> 
+    {% include "footer.html" %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.5.0/js/bootstrap.bundle.min.js" integrity="sha512-RTet+Zgo0fQvuz9Dq+yOYHvrAheBdRyb9TwGnG7qMl+Kpjcya7En27Q2rkF08T4F3PCuXxw02OTUeSABAV6uJg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script>
+        const questions = document.querySelectorAll('.question');
+        const nextBtn = document.getElementById('nextBtn');
+        const submitBtn = document.getElementById('submitBtn');
+        const timerDisplay = document.getElementById('timer');
+        let currentQuestionIndex = 0;
+        let timeLeft = 60; // Set the initial time in seconds
+    
+        function showCurrentQuestion() {
+            questions.forEach((question, index) => {
+                if (index === currentQuestionIndex) {
+                    question.style.display = 'block';
+                } else {
+                    question.style.display = 'none';
+                }
+            });
+    
+            if (currentQuestionIndex === questions.length - 1) {
+                nextBtn.style.display = 'none';
+                submitBtn.style.display = 'block';
+            } else {
+                nextBtn.style.display = 'block';
+                submitBtn.style.display = 'none';
+            }
+        }
+    
+        function goToNextQuestion() {
+            const currentQuestion = questions[currentQuestionIndex];
+            const selectedOption = currentQuestion.querySelector('input[type="radio"]:checked');
+            
+            if (selectedOption) {
+                currentQuestionIndex++;
+                showCurrentQuestion();
+            } else {
+                // No option selected, show an error message or take appropriate action
+                alert('Please select an option.');
+            }
+        }
+    
+        function updateTimer() {
+            timerDisplay.textContent = timeLeft;
+            if (timeLeft === 0) {
+                clearInterval(timerInterval);
+                // Timer has reached 0, submit the quiz or take appropriate action
+                submitBtn.click(); // Simulate clicking the submit button
+            }
+            timeLeft--;
+        }
+    
+        nextBtn.addEventListener('click', goToNextQuestion);
+        showCurrentQuestion();
+    
+        // Start the timer
+        let timerInterval = setInterval(updateTimer, 1000);
+    </script>
+    <script type="text/javascript"
+ src="https://studio.alan.app/web/lib/alan_lib.min.js"></script>
+<script>
+  var alanBtnInstance = alanBtn({
+    key: "627e8d0c376aecece013bd9e7f8b6d502e956eca572e1d8b807a3e2338fdd0dc/stage",
+    onCommand: function (commandData) {
+      if (commandData.command === "go:back") {
+        //call client code that will react on the received command
+      }
+    },
+    rootEl: document.getElementById("alan-btn"),
+  });
+</script>
+    
+    
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz Completed</title>
+    <!-- Include CSS stylesheets and Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        /* Custom CSS styles */
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 50px;
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    {% include "header.html" %}
+    <div class="container">
+        <div class="results-summary-container">
+            <div class="confetti">
+                <div class="confetti-piece"></div>
+                <!-- Add more confetti pieces as needed -->
+            </div>
+            <div class="results-summary-container__result">
+                <div class="heading-tertiary">Your Result</div>
+                <div class="result-box">
+                    <div class="heading-primary">{{ score }}</div>
+                    <p class="result">of 100</p>
+                </div>
+                {% if score >= 80 %}
+                    <div class="result-text-box">
+                        <div class="heading-secondary">Excellent</div>
+                        <p class="paragraph">
+                            You scored higher than 75% of the people who have taken these tests.
+                        </p>
+                    </div>
+                {% elif score >= 60 %}
+                    <div class="result-text-box">
+                        <div class="heading-secondary">Good Work</div>
+                        <p class="paragraph">
+                            You scored higher than 55% of the people who have taken these tests.
+                        </p>
+                    </div>
+                {% elif score >= 45 %}
+                    <div class="result-text-box">
+                        <div class="heading-secondary">Well Done</div>
+                        <p class="paragraph">
+                            You scored higher than 35% of the people who have taken these tests.
+                        </p>
+                    </div>
+                {% else %}
+                    <div class="result-text-box">
+                        <div class="heading-secondary">Oops!</div>
+                        <p class="paragraph">
+                            Try Again.
+                        </p>
+                    </div>
+                {% endif %}
+                <div class="summary__cta">
+                    <a href="/">
+                        <button class="btn btn__continue">Exit</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include "footer.html" %}
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

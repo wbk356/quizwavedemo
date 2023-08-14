@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>QuizWave - Quiz</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.5.0/css/bootstrap.min.css">
+</head>
+<body>
+    <h1>Quiz</h1>
+    <script>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                alert("{{ messages[0] }}");
+            {% endif %}
+        {% endwith %}
+    </script>
+
+    <form method="POST" action="/add_question">
+        <label for="question">Question:</label>
+        <input type="text" id="question" name="question" required><br><br>
+        
+        <label for="option1">Option 1:</label>
+        <input type="text" id="option1" name="option1" required><br>
+        
+        <label for="option2">Option 2:</label>
+        <input type="text" id="option2" name="option2" required><br>
+        
+        <label for="option3">Option 3:</label>
+        <input type="text" id="option3" name="option3" required><br>
+        
+        <label for="option4">Option 4:</label>
+        <input type="text" id="option4" name="option4" required><br>
+        
+        <label for="correct_answer">Correct Answer:</label>
+        <input type="text" id="correct_answer" name="correct_answer" required><br><br>
+
+        <input type="submit" value="Add Question">
+    </form>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.5.0/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>QuizWave - Home</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+      
+</head>
+<body>
+    <script>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                alert("{{ messages[0] }}");
+            {% endif %}
+        {% endwith %}
+    </script>
+    <div class="msg">{{ msg }}</div>  
+    {% include "header.html" %}
+
+    <video class="vid1" autoplay poster="http://obata.com/wp-content/uploads/2015/02/Screen-Shot-2015-06-09-at-3.09.55-PM.png" id="bgvid" loop>
+  <!-- WCAG general accessibility recommendation is that media such as background video play through only once. Loop turned on for the purposes of illustration; if removed, the end of the video will fade in the same way created by pressing the "Pause" button  -->
+  <source src="http://obata.com/wp-content/uploads/2015/06/2015-website-BKG-4-600p.mp4">
+</video>
+<video id="vid2">
+  <source src="http://obata.com/wp-content/uploads/2015/08/Obata_Sting-04-600p.mp4">
+</video>
+<div id="polina">
+  <h1>QuizWave</h1>
+  <hr>
+  <p>
+    <p>{% if 'user_id' in session %}    
+     <div class="container mt-4">
+         <h1> Hi {{ name }},Welcome to QuizWave!</h1>
+         <!-- Add your content here -->
+     </div>
+    {% else %} 
+     <div class="container mt-4">
+        <h1> Hi ,Welcome to QuizWave!</h1>
+        <!-- Add your content here -->
+    </div>
+    {% endif %}
+    <br></p>
+    <p>Press start to play</p>
+    <a href="/quiz" style="text-decoration:none;">
+    <button class="pauseplz">START</button>
+    </a>
+</div>
+{% include "footer.html" %}
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.5.0/js/bootstrap.min.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
