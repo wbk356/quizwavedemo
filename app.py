@@ -9,6 +9,7 @@ import json
 
 
 
+
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(16)
 
@@ -137,6 +138,7 @@ def quiz():
 
             # Calculate the user's score based on the submitted answers
             score = calculate_user_score(user_answers, questions)
+            print(score)
 
             # Save the user's score in the database
             save_user_score(session['user_id'], score)

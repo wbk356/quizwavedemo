@@ -523,6 +523,75 @@ body {
   background-color: hsl(166, 100%, 37%);
 }
 
+
+.card {
+  position: relative;
+  width: 400px;
+  height: 400px;
+  background-color: #0f0f0f;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  perspective: 1000px;
+  box-shadow: 0 0 0 5px #04040480;
+  transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.card__image {
+  width: 100%; /* Make the image width 100% of its container */
+  height: auto; /* Maintain the aspect ratio */
+  object-fit: cover; /* Scale the image proportionally to cover the container */
+  position: absolute; /* Position the image */
+  top: 0;
+  left: 0;
+   /* Place the image behind the content */
+}
+
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(241, 231, 231, 0.2);
+}
+
+.card__content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 30px;
+  box-sizing: border-box;
+  background-color: #eeeaea;
+  transform: rotateX(-90deg);
+  transform-origin: bottom;
+  transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  
+}
+
+.card:hover .card__content {
+  transform: rotateX(0deg);
+}
+
+.card__title {
+  margin: 0;
+  font-size: 24px;
+  color: #333;
+  font-weight: 700;
+}
+
+
+
+
+.card__description {
+  margin: 10px 0 0;
+  font-size: 14px;
+  color: #777;
+  line-height: 1.4;
+}
+
+
 @keyframes makeItRain {
   from {
     opacity: 0;
@@ -537,3 +606,51 @@ body {
   }
 }
 
+.popup {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1;
+  overflow: auto;
+  backdrop-filter: blur(5px);
+}
+
+
+.popup-content {
+  background-color: #000000;
+  margin: 10% auto;
+  padding: 20px;
+  width: 80%;
+  max-width: 600px;
+  position: relative;
+  
+}
+
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  color: white;
+}
+
+.ok-button {
+  background-color: #621a54;
+  color: #ede6ed;
+  border: none;
+  padding: 10px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.ok-button:hover {
+  background-color: #be3ebe;
+}

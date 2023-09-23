@@ -12,6 +12,31 @@
 </head>
 <body>
     {% include "header.html" %}
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <span class="close" id="close-popup">&times;</span>
+            <div class="card">
+                <img src="/static/images/popimage.png" alt="Your Image" class="card__image">
+                <div class="card__content">
+                    <p class="card__title">Welcome,</p>
+                    <p class="card__description">
+                        <ol>
+                            <li>Say "Read the Question" to read the question aloud,<br>
+                            <li>Say "Select Option Number[1|2|3|4]" to select your desired option,<br>
+                            <li>Say "Next Question" to go to the next question, <br>
+                            <li>Say "Submit the quiz" to submit the quiz and get the result. 
+                        </ol>
+                        <br>
+                        <b>Thank you, Good Luck!</b><br>
+                        <button class="ok-button" id="ok-button">GOT IT!</button><br>
+                    </p>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+      
+    <script src="script.js"></script>
     <div class="container">
         <div class="login-box box boxs">
             <form id="quizForm" action="/quiz" method="POST">
@@ -88,21 +113,11 @@
             }
         }
     
-        function updateTimer() {
-            timerDisplay.textContent = timeLeft;
-            if (timeLeft === 0) {
-                clearInterval(timerInterval);
-                // Timer has reached 0, submit the quiz or take appropriate action
-                submitBtn.click(); // Simulate clicking the submit button
-            }
-            timeLeft--;
-        }
-    
+        
         nextBtn.addEventListener('click', goToNextQuestion);
         showCurrentQuestion();
     
-        // Start the timer
-        let timerInterval = setInterval(updateTimer, 1000);
+        
     </script>
     <script type="text/javascript"
  src="https://studio.alan.app/web/lib/alan_lib.min.js"></script>
@@ -110,9 +125,66 @@
   var alanBtnInstance = alanBtn({
     key: "627e8d0c376aecece013bd9e7f8b6d502e956eca572e1d8b807a3e2338fdd0dc/stage",
     onCommand: function (commandData) {
-      if (commandData.command === "go:back") {
-        //call client code that will react on the received command
+        if (commandData.command === "read:question") {
+            const questionIndex = currentQuestionIndex; // Use the current question index
+            const questionToRead = questions[questionIndex];
+            const questionText = questionToRead.querySelector('.question-text').textContent;
+            const optionsContainer = questionToRead.querySelector('.radio-input');
+            const options = optionsContainer.querySelectorAll('label');
+            
+            let optionsText = "Options: ";
+            options.forEach((option, index) => {
+                optionsText += `Option ${index + 1}: ${option.textContent}. `;
+            });
+
+            // Use Alan AI to read the question and options
+            alanBtnInstance.playText(`Question: ${questionText}. ${optionsText}`);
+        
       }
+
+
+      if (commandData.command.startsWith("select:option")) {
+        const optionNumber = parseInt(commandData.command.match(/\d+/)[0]);
+    
+        // Find the radio input element within the current question based on the option number
+        const currentQuestion = questions[currentQuestionIndex];
+        const optionInput = currentQuestion.querySelector(`input[type="radio"][value="option-${optionNumber}"]`);
+    
+        if (optionInput) {
+            optionInput.checked = true; // Select the radio input
+            alanBtnInstance.playText(`Selected Option`);
+        } else {
+            // Handle the case where the option does not exist (invalid option).
+            alanBtnInstance.playText(`Invalid option selected.`);
+        }
+    }
+
+
+     if (commandData.command === "next:question") {
+        // Simulate a click event on the "Next" button to go to the next question.
+        const nextBtn = document.getElementById('nextBtn');
+        nextBtn.click();
+
+        // Provide feedback to the user through Alan AI.
+        alanBtnInstance.playText('Moving to the next question.');
+    }
+
+
+    else if (commandData.command === "submit:quiz") {
+        // Simulate a click event on the "Submit" button to submit the quiz.
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.click();
+
+        // Provide feedback to the user through Alan AI.
+        alanBtnInstance.playText('Submitting the quiz.');
+    }
+
+    else if (commandData.command === "help") {
+        // Provide feedback to the user through Alan AI.
+        alanBtnInstance.playText('');
+    }
+
+
     },
     rootEl: document.getElementById("alan-btn"),
   });
