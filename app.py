@@ -4,7 +4,6 @@ import pymysql
 from flask_mysqldb import MySQL
 import secrets
 import speech_recognition as sr
-import pyttsx3
 import json
 
 
@@ -14,9 +13,9 @@ app = Flask(__name__)
 app.secret_key = secrets.token_hex(16)
 
 app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'qadmin'
-app.config['MYSQL_PASSWORD'] = 'Waleed@123#'
-app.config['MYSQL_DB'] = 'quizwave'
+app.config['MYSQL_USER'] = 'qadminqw'
+app.config['MYSQL_PASSWORD'] = 'Quizwave@123#'
+app.config['MYSQL_DB'] = 'quizwavedb'
 
 
 
@@ -25,9 +24,9 @@ mysql = MySQL(app)
 
 db = pymysql.connect(
     host="localhost",
-    user="qadmin",
-    password="Waleed@123#",
-    database="quizwave"
+    user="qadminqw",
+    password="Quizwave@123#",
+    database="quizwavedb"
 )
 
 @app.route('/')
@@ -89,6 +88,7 @@ def login():
         # Check if the email and password exist in the database
         cursor.execute("SELECT * FROM users WHERE email = %s AND password = %s", (email, password))
         user = cursor.fetchone()
+       
 
         if user:
             # User is authenticated, store user data in session
@@ -226,10 +226,10 @@ def retrieve_questions_from_database():
     # Iterate over the rows and extract question data
     for row in rows:
         question = {
-            'id': row[0],  # assuming the question ID is stored in the 1st column
+            'id': row[0],  # the question ID is stored in the 1st column
             'question': row[1],  # the question text is stored in the 2nd column
             'options': [
-                {'id': 'option-1', 'text': row[2]},  # assuming option IDs start with 'option-1' and are stored in columns 3 to 6
+                {'id': 'option-1', 'text': row[2]},  # option IDs start with 'option-1' and are stored in columns 3 to 6
                 {'id': 'option-2', 'text': row[3]},
                 {'id': 'option-3', 'text': row[4]},
                 {'id': 'option-4', 'text': row[5]}
@@ -266,6 +266,7 @@ def calculate_user_score(user_answers, questions):
 
     total_questions = len(questions)
     score = (correct_answers / total_questions) * 100
+    round(score)
 
     return score
 
