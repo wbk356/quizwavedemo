@@ -239,6 +239,7 @@ def retrieve_questions_from_database():
         questions.append(question)
         
         
+       
 
     # Close the cursor and database connection
     #cursor.close()
@@ -255,18 +256,18 @@ def retrieve_questions_from_database():
 
 
 def calculate_user_score(user_answers, questions):
-    correct_answers = 0
+    result = 0
     new=[]
-    new=['option-1','option-3','option-4','option-1']
-    for element in user_answers:
-        if element in new:
-            correct_answers += 1
+    new=['option-1','option-4','option-3','option-1','option-2','option-4','option-3']
+    for i in  range (len(new)):
+        if new[i] == user_answers[i]:
+            result += 1
 
     
 
     total_questions = len(questions)
-    score = (correct_answers / total_questions) * 100
-    round(score)
+    score = (result / total_questions) * 100
+    score = round(score) 
 
     return score
 
@@ -326,7 +327,7 @@ def retrieve_correct_answers():
 
     # Iterate over the rows and extract the correct answer
     for row in rows:
-        correct_answer = row[0]  # Assuming the correct_answer column is in the first position (0 index)
+        correct_answer = row[0]  #  the correct_answer column is in the first position (0 index)
         correct_answers.append(correct_answer)
 
     # Close the cursor and database connection
