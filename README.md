@@ -43,20 +43,20 @@ approach to quiz games.
     ```bash
     git clone https://github.com/wbk356/quizwavedemo.git
     cd QuizWave
-    ```
+    
 
 2. Set up a virtual environment (optional but recommended).
    
     ```bash
     python -m venv venv
     source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
-    ```
+    
 
 3. Install project dependencies.
     
     ```python
     pip install -r requirements.txt
-    ```
+    
 
 4. Create a MySQL database and configure your database connection settings.
     
@@ -73,14 +73,14 @@ approach to quiz games.
 
           ```
           mysql -u your_username -p
-          ```
+          
         Replace your_username with your MySQL username.
     
     - Step 3: Create a new database for QuizWave:
           
           ```
           CREATE DATABASE quizwavedb;
-          ```
+          
     
     - Step 3: Configure Database Connection. In your Flask application, configure the database connection settings in the app.py file. 
             
@@ -98,7 +98,7 @@ approach to quiz games.
     
     ```python
     python app.py
-    ```
+    
 
 6. Access the application in your web browser at http://localhost:5000.
 
