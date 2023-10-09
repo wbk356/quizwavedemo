@@ -5,30 +5,26 @@ from flask_mysqldb import MySQL
 import secrets
 import speech_recognition as sr
 import json
-from config import MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DB
-
-
-
+from config import MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DB, ALAN_API_KEY
 
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(16)
 
-app.config['MYSQL_HOST'] = 'MYSQL_HOST'
-app.config['MYSQL_USER'] = 'MYSQL_USER'
-app.config['MYSQL_PASSWORD'] = 'MYSQL_PASSWORD'
-app.config['MYSQL_DB'] = 'MYSQL_DB'
-
-
+app.config['MYSQL_HOST'] = MYSQL_HOST
+app.config['MYSQL_USER'] = MYSQL_USER
+app.config['MYSQL_PASSWORD'] = MYSQL_PASSWORD
+app.config['MYSQL_DB'] = MYSQL_DB
 
 mysql = MySQL(app)
 
-
 db = pymysql.connect(
-    host="MYSQL_HOST",
-    user="MYSQL_USER",
-    password="MYSQL_PASSWORD",
-    database="MYSQL_DB"
+    host=MYSQL_HOST,
+    user=MYSQL_USER,
+    password=MYSQL_PASSWORD,
+    database=MYSQL_DB
 )
+
+
 
 @app.route('/')
 def home():
@@ -151,7 +147,7 @@ def quiz():
         else:
             questions_json = retrieve_questions_from_database()
             questions = json.loads(questions_json)
-            return render_template('quiz.html', questions=questions)
+            return render_template('quiz.html', questions=questions, alan_api_key=ALAN_API_KEY)
     else:
         return redirect('/login')
 

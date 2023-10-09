@@ -38,29 +38,29 @@ approach to quiz games.
 
 ## Getting Started
 
-1. Clone the repository to your local machine.
+1. **Clone the repository to your local machine.**
 
     ```bash
     git clone https://github.com/wbk356/quizwavedemo.git
     cd QuizWave
     
 
-2. Set up a virtual environment (optional but recommended).
+2. **Set up a virtual environment (optional but recommended).**
    
     ```bash
     python -m venv venv
     source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
     
 
-3. Install project dependencies.
+3. **Install project dependencies.**
     
     ```python
     pip install -r requirements.txt
     
 
-4. Create a MySQL database and configure your database connection settings.
+4. **Create a MySQL database and configure your database connection settings.**
     
-    ### Database Setup
+    #### Database Setup
     To run QuizWave, you need to set up a MySQL database. Follow these steps to configure and initialize the database:
     
     - Step 1: Install MySQL
@@ -91,16 +91,38 @@ approach to quiz games.
         
              
 
+5. **Alan Studio Setup**
 
-            
+     Alan Studio is used as the interactive voice assistant for this project. Follow these steps to set up Alan Studio:
 
-5. Start the Flask application.
+    1. Sign Up for Alan Studio:
+      - Visit the [Alan Studio website](https://alan.app/) and sign up for an account if you don't have one already.
+
+    2. Create a New Voice Assistant Project:
+      - Log in to Alan Studio.
+      - Create a new voice assistant project, and configure its settings as needed.
+
+    3. Access Your API Key:
+      - In your Alan Studio project, navigate to the "Integrations" or "API Keys" section.
+      - Generate an API key that will allow your Flask application to interact with Alan Studio.
+
+    4. Configure API Key in Your Flask Application:
+      - In your Flask application (app.py), import the API key from a secure location.
+      - Use the API key to set up the communication between your Flask app and Alan Studio.
+
+                  
+
+    5. Interact with Alan Studio:
+     - Implement voice commands and interactions in your Flask application that utilize Alan Studio's API key.
+     - Refer to [Alan Studio documentation](https://alan.app/docs/) for guidance on creating voice scripts and integrating voice commands into your application.
+
+6. **Start the Flask application.**
     
     ```python
     python app.py
     
 
-6. Access the application in your web browser at http://localhost:5000.
+7. **Access the application in your web browser** at http://localhost:5000.
 
 
 ## Usage

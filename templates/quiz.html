@@ -123,7 +123,7 @@
  src="https://studio.alan.app/web/lib/alan_lib.min.js"></script>
 <script>
   var alanBtnInstance = alanBtn({
-    key: "627e8d0c376aecece013bd9e7f8b6d502e956eca572e1d8b807a3e2338fdd0dc/stage",
+    key: "{{ alan_api_key }}",
     onCommand: function (commandData) {
         if (commandData.command === "read:question") {
             const questionIndex = currentQuestionIndex; // Use the current question index
