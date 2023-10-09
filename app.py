@@ -5,6 +5,7 @@ from flask_mysqldb import MySQL
 import secrets
 import speech_recognition as sr
 import json
+from config import MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DB
 
 
 
@@ -12,10 +13,10 @@ import json
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(16)
 
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'qadminqw'
-app.config['MYSQL_PASSWORD'] = 'Quizwave@123#'
-app.config['MYSQL_DB'] = 'quizwavedb'
+app.config['MYSQL_HOST'] = 'MYSQL_HOST'
+app.config['MYSQL_USER'] = 'MYSQL_USER'
+app.config['MYSQL_PASSWORD'] = 'MYSQL_PASSWORD'
+app.config['MYSQL_DB'] = 'MYSQL_DB'
 
 
 
@@ -23,10 +24,10 @@ mysql = MySQL(app)
 
 
 db = pymysql.connect(
-    host="localhost",
-    user="qadminqw",
-    password="Quizwave@123#",
-    database="quizwavedb"
+    host="MYSQL_HOST",
+    user="MYSQL_USER",
+    password="MYSQL_PASSWORD",
+    database="MYSQL_DB"
 )
 
 @app.route('/')
@@ -130,7 +131,7 @@ def quiz():
                     user_answers.append(option_text)
 
             # Print the selected options for debugging
-            print(user_answers)
+            #print(user_answers)
 
             # Retrieve questions from the database
             questions_json = retrieve_questions_from_database()
@@ -138,7 +139,7 @@ def quiz():
 
             # Calculate the user's score based on the submitted answers
             score = calculate_user_score(user_answers, questions)
-            print(score)
+            #print(score)
 
             # Save the user's score in the database
             save_user_score(session['user_id'], score)
@@ -171,7 +172,7 @@ def quiz():
 
 
 
-
+"""
 @app.route('/addquestion', methods=['GET', 'POST'])
 def addquestion():
     return render_template('addquestion.html')
@@ -188,7 +189,7 @@ def add_question():
     
     cur = mysql.connection.cursor()
     
-    cur.execute("INSERT INTO question (question_text, option1, option2, option3, option4, correct_answer ) VALUES (%s, %s, %s, %s, %s, %s)", (question, option1, option2, option3, option4, correct_answer))
+    #cur.execute("INSERT INTO question (question_text, option1, option2, option3, option4, correct_answer ) VALUES (%s, %s, %s, %s, %s, %s)", (question, option1, option2, option3, option4, correct_answer))
 
     # Commit the changes
     mysql.connection.commit()
@@ -198,7 +199,7 @@ def add_question():
     flash('Added.')
     return redirect(url_for('addquestion'))
 
-
+"""
 
 
 
@@ -206,7 +207,7 @@ def add_question():
 
 
 def retrieve_questions_from_database():
-    # Establish a connection to the MySQL database
+    
 
     # Create a cursor object to execute SQL queries
     cursor = db.cursor()
