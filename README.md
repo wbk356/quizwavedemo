@@ -71,14 +71,14 @@ approach to quiz games.
 
         Log in to MySQL using your credentials:
 
-          ```
+          
           mysql -u your_username -p
           
         Replace your_username with your MySQL username.
     
     - Step 3: Create a new database for QuizWave:
           
-          ```
+          
           CREATE DATABASE quizwavedb;
           
     
